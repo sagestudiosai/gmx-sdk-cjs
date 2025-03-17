@@ -1,5 +1,7 @@
 # <img src="https://app.gmx.io/favicon/apple-icon-144x144.png" width="28" height="28"> GMX SDK
 
+NOTE: A modified fork of official GMX SDK version 0.2 to work with commonjs.
+
 ## Install
 
 ```bash
