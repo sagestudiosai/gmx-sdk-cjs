@@ -90,3 +90,5 @@ export class GmxSdk {
     return this.config.account as Address;
   }
 }
+
+export * from "./types"
