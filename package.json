@@ -20,7 +20,8 @@
     "test": "vitest",
     "test:ci": "vitest run",
     "tscheck": "tsc -p tsconfig.json --noEmit",
-    "build": "rm -rf build && tsc -p tsconfig.json && npm run copy:jsons"
+    "build": "rm -rf build && tsc -p tsconfig.json && npm run copy:jsons",
+    "postinstall": "npm run build"
   },
   "publishConfig": {
     "access": "public"
