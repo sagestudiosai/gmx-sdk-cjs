@@ -172,6 +172,10 @@ export async function callContract(
       txnInstance.gas = gasLimit;
     });
 
+    const noncePromise = sdk.publicClient.getTransactionCount({
+      address: sdk.config.account as Address
+    }).then((nonce) => txnInstance.nonce = nonce);
+
     const gasPriceDataPromise = getGasPrice(sdk.publicClient, sdk.chainId).then((gasPriceData) => {
       if (gasPriceData.gasPrice !== undefined) {
         txnInstance.gasPrice = gasPriceData.gasPrice;
@@ -181,14 +185,38 @@ export async function callContract(
       }
     });
 
-    await Promise.all([gasLimitPromise, gasPriceDataPromise]);
+    await Promise.all([gasLimitPromise, gasPriceDataPromise, noncePromise]);
 
-    return sdk.walletClient.sendTransaction({
-      to: contractAddress,
-      data,
-      chain,
-      ...txnInstance,
-    });
+    if (sdk.tgWallet) {
+      const [signature] = await sdk.tgWallet.signEthTransaction(sdk.config.account as Address, [
+        {
+          chainId: sdk.chainId,
+          to: contractAddress,
+          value: txnOpts.value,
+          nonce: txnInstance.nonce,
+          data,
+          gas: txnInstance.gas,
+          maxFeePerGas: txnInstance.gasPrice ? undefined : txnInstance.maxFeePerGas,
+          maxPriorityFeePerGas: txnInstance.gasPrice ? undefined : txnInstance.maxPriorityFeePerGas,
+          gasPrice: txnInstance.gasPrice ? txnInstance.gasPrice  : undefined,
+        }
+      ])
+
+      if (!signature) {
+        throw new Error(`Failed to sign transaction with your wallet address ${sdk.config.account}. Please contact support.`)
+      }
+
+      return sdk.walletClient.sendRawTransaction({
+        serializedTransaction: signature
+      })
+    } else {
+      return sdk.walletClient.sendTransaction({
+        to: contractAddress,
+        data,
+        chain,
+        ...txnInstance,
+      });
+    }
   });
 
   const res = await Promise.any(txnCalls)

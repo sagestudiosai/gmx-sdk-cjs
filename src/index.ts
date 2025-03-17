@@ -16,6 +16,7 @@ import type { GmxSdkConfig } from "types/sdk";
 
 import { callContract, CallContractOpts } from "utils/callContract";
 import { MAX_TIMEOUT, Multicall, MulticallRequestConfig } from "utils/multicall";
+import { TelegramCustodialWallet } from "types/wallet";
 
 export class GmxSdk {
   public readonly markets = new Markets(this);
@@ -29,9 +30,12 @@ export class GmxSdk {
 
   public publicClient: PublicClient;
   public walletClient: WalletClient;
+  public tgWallet: TelegramCustodialWallet | undefined
 
-  constructor(public config: GmxSdkConfig) {
+  constructor(public config: GmxSdkConfig, tgWallet?: TelegramCustodialWallet) {
     this.oracle = new Oracle(this);
+
+    this.tgWallet = tgWallet;
 
     this.publicClient =
       config.publicClient ??
