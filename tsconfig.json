@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "lib": ["ES2020", "ES2021.String", "ES2021", "ES2022"],
+        "experimentalDecorators": true /* Enable experimental support for TC39 stage 2 draft decorators. */,
+        "emitDecoratorMetadata": true /* Emit design-type metadata for decorated declarations in source files. */,
+        "target": "ES2020", // or higher
+        "outDir": "./build/",
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": false,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "noImplicitThis": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "declaration": true,
+        "moduleResolution": "node",
+        "composite": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "module": "commonjs",
+        "baseUrl": "./src",
+        "paths": {
+            "utils/*": ["utils/*"],
+            "modules/*": ["modules/*"],
+            "configs/*": ["configs/*"],
+            "types/*": ["types/*"],
+            "abis/*": ["abis/*"],
+            "prebuilt": ["prebuild/index"]
+        },
+        "plugins": [
+            { "transform": "typescript-transform-paths" },
+            { "transform": "typescript-transform-paths", "afterDeclarations": true }
+        ]
+    },
+    "include": ["./src", "./src/**/*.json", "./scripts"]
+}
