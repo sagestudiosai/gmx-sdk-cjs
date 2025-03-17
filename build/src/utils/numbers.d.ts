@@ -1,0 +1,12 @@
+export declare const PRECISION: bigint;
+export declare const BN_ZERO = 0n;
+export declare const BN_ONE = 1n;
+export declare const BN_NEGATIVE_ONE = -1n;
+export declare function expandDecimals(n: bigint | number, decimals: number): bigint;
+export declare function basisPointsToFloat(basisPoints: bigint): bigint;
+export declare function getBasisPoints(numerator: bigint, denominator: bigint, shouldRoundUp?: boolean): bigint;
+export declare function roundUpMagnitudeDivision(a: bigint, b: bigint): bigint;
+export declare function applyFactor(value: bigint, factor: bigint): bigint;
+export declare function numberToBigint(value: number, decimals: number): bigint;
+export declare function bigintToNumber(value: bigint, decimals: number): number;
+export declare function adjustForDecimals(amount: bigint, divDecimals: number, mulDecimals: number): bigint;

@@ -1,0 +1,4 @@
+import type { JsonFragment } from "ethers";
+import { Abi } from "viem";
+export type AbiId = "CustomErrors" | "DataStore" | "ERC721" | "ERC20" | "EventEmitter" | "ExchangeRouter" | "GlpManager" | "GlvReader" | "GlvRouter" | "GMT" | "GmxMigrator" | "GovToken" | "MintableBaseToken" | "Multicall" | "OrderBook" | "OrderBookReader" | "OrderExecutor" | "PositionManager" | "PositionRouter" | "Reader" | "ReaderV2" | "ReferralStorage" | "RewardReader" | "RewardRouter" | "RewardTracker" | "Router-v2" | "Router" | "SubaccountRouter" | "SyntheticsReader" | "SyntheticsRouter" | "Timelock" | "Token" | "Treasury" | "UniPool" | "UniswapV2" | "Vault" | "VaultReader" | "VaultV2" | "VaultV2b" | "Vester" | "WETH" | "YieldFarm" | "YieldToken";
+export declare const abis: Record<AbiId, readonly (Abi[number] & JsonFragment)[]>;
